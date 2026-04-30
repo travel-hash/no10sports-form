@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>No.10 Sports</title>
+
+<!-- ✅ IMPORTANT for mobile view -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
@@ -14,86 +14,73 @@ body{
     font-family:Arial;
     background:#000;
     color:white;
-}
-
-/* CENTER */
-.container{
     display:flex;
     justify-content:center;
     align-items:center;
     min-height:100vh;
-    padding:20px;
 }
 
-/* FORM BOX */
+/* Bigger form */
 .box{
     background:#111;
     padding:40px;
-    border-radius:20px;
-    width:100%;
-    max-width:500px;
+    border-radius:16px;
+    width:90%;
+    max-width:450px;
     text-align:center;
 }
 
-/* LOGO */
+/* Bigger logo */
 .logo{
     width:180px;
     margin-bottom:20px;
 }
 
-/* TITLE */
-h2{
-    font-size:26px;
-}
-
-/* INPUT */
+/* Bigger inputs */
 input{
     width:100%;
-    padding:16px;
-    margin:10px 0;
+    padding:14px;
+    margin:8px 0;
     border:none;
-    border-radius:10px;
+    border-radius:8px;
     font-size:16px;
 }
 
-/* BUTTON */
+/* Bigger buttons */
 button{
     width:100%;
     padding:16px;
     border:none;
-    border-radius:10px;
+    border-radius:8px;
     font-size:18px;
     cursor:pointer;
 }
 
-/* SUBMIT */
 .submit-btn{
     background:green;
     color:white;
-    font-weight:bold;
 }
 
-/* POPUP */
+/* Popup */
 .popup{
     position:fixed;
     width:100%;
     height:100%;
-    background:rgba(0,0,0,0.95);
+    background:rgba(0,0,0,0.9);
     display:none;
     justify-content:center;
     align-items:center;
 }
 
-/* POPUP BOX */
 .popup-box{
     background:#111;
     padding:30px;
-    border-radius:20px;
+    border-radius:16px;
     width:90%;
-    max-width:400px;
+    max-width:350px;
+    text-align:center;
 }
 
-/* SOCIAL */
 .insta{
     background:#E1306C;
     color:white;
@@ -106,40 +93,43 @@ button{
     margin:10px 0;
 }
 
-/* CONTINUE */
 .continue{
     background:green;
-    margin-top:15px;
+    margin-top:12px;
 }
 
-/* THANK */
+.error{
+    color:red;
+    font-size:12px;
+    text-align:left;
+    display:none;
+}
+
+/* Thank you screen */
 .thank{
     display:none;
     text-align:center;
-    padding:30px;
 }
 
-/* ICONS */
+.thank img{
+    width:180px;
+    margin-bottom:20px;
+}
+
+/* Bigger icons */
 .icons i{
-    font-size:36px;
+    font-size:32px;
     margin:15px;
+    transition:0.3s;
 }
 
-/* MOBILE */
-@media (max-width:600px){
-    .box{
-        padding:25px;
-    }
-    .logo{
-        width:140px;
-    }
+.icons i:hover{
+    transform:scale(1.2);
 }
 </style>
 </head>
 
 <body>
-
-<div class="container">
 
 <div class="box" id="formBox">
 
@@ -148,30 +138,32 @@ button{
 <h2>Registration Form</h2>
 
 <input id="name" placeholder="Full Name">
+
 <input id="phone" placeholder="Phone Number">
+<div class="error" id="phoneErr">Phone already registered</div>
+
 <input id="email" placeholder="Email ID">
+<div class="error" id="emailErr">Email already registered</div>
 
 <button class="submit-btn" onclick="openPopup()">Submit</button>
 
 </div>
 
-</div>
-
-<!-- POPUP -->
+<!-- Popup -->
 <div class="popup" id="popup">
 <div class="popup-box">
 
 <h3>Follow & Subscribe First</h3>
 
 <button class="insta" onclick="window.open('https://www.instagram.com/no.10sports/')">
-Follow on Instagram
+<i class="fa-brands fa-instagram"></i> Follow on Instagram
 </button>
 
 <button class="youtube" onclick="window.open('https://www.youtube.com/@no.10sports')">
-Subscribe on YouTube
+<i class="fa-brands fa-youtube"></i> Subscribe on YouTube
 </button>
 
-<br>
+<br><br>
 
 <input type="checkbox" id="check"> I have completed both steps
 
@@ -180,14 +172,13 @@ Subscribe on YouTube
 </div>
 </div>
 
-<!-- THANK YOU -->
+<!-- Thank you -->
 <div class="thank" id="thank">
 
 <img src="/static/logo.png">
 
 <h1>Thank You</h1>
-
-<p>Your registration has been submitted</p>
+<p>Your registration has been successfully submitted</p>
 
 <div class="icons">
 <a href="https://www.instagram.com/no.10sports/" target="_blank">
@@ -197,6 +188,14 @@ Subscribe on YouTube
 <a href="https://www.youtube.com/@no.10sports" target="_blank">
 <i class="fa-brands fa-youtube" style="color:#FF0000;"></i>
 </a>
+
+<a href="https://www.facebook.com/no10sportss" target="_blank">
+<i class="fa-brands fa-facebook" style="color:#1877F2;"></i>
+</a>
+
+<a href="https://www.linkedin.com/company/110479937" target="_blank">
+<i class="fa-brands fa-linkedin" style="color:#0A66C2;"></i>
+</a>
 </div>
 
 </div>
@@ -204,13 +203,13 @@ Subscribe on YouTube
 <script>
 
 function openPopup(){
-    document.getElementById("popup").style.display = "flex";
+    document.getElementById("popup").style.display="flex";
 }
 
 function submitForm(){
 
     if(!document.getElementById("check").checked){
-        alert("Please complete steps");
+        alert("Please complete follow & subscribe first");
         return;
     }
 
@@ -218,10 +217,10 @@ function submitForm(){
     btn.innerText = "Processing...";
     btn.disabled = true;
 
-    fetch("/submit",{
-        method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({
+    fetch("/submit", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
             name: document.getElementById("name").value,
             phone: document.getElementById("phone").value,
             email: document.getElementById("email").value
@@ -235,7 +234,7 @@ function submitForm(){
             document.getElementById("formBox").style.display = "none";
             document.getElementById("thank").style.display = "block";
         } else {
-            alert("Submission failed");
+            alert("Error submitting form");
         }
 
         btn.innerText = "Continue";
