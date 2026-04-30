@@ -12,10 +12,9 @@ def submit():
     try:
         data = request.get_json()
 
-        url = "https://script.google.com/macros/s/AKfycbyvWrONX0Kk1foAdLtqjsOMatlKE6nMQUuPH8SM-STHRV0BQYOCai-vnbPowLshfhHmMg/exec"
+        url = "https://script.google.com/macros/s/AKfycbwWi_D0ruVLsf7F1IIR6e1jIMxgbg9Lcx_L0rYncuLTTTMmPt1ZxnnPNtR7YehOjopo4g/exec"
 
-        # SAFE REQUEST (IMPORTANT)
-        response = requests.post(url, data=data, timeout=5)
+        response = requests.post(url, json=data, timeout=5)
 
         return jsonify({
             "status": "success",
@@ -28,6 +27,5 @@ def submit():
             "message": str(e)
         })
 
-# VERY IMPORTANT FOR RENDER
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000)
