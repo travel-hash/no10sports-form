@@ -16,7 +16,7 @@ body{
     color:white;
 }
 
-/* FULL SCREEN CENTER */
+/* CENTER */
 .container{
     display:flex;
     justify-content:center;
@@ -25,30 +25,28 @@ body{
     padding:20px;
 }
 
-/* BIG FORM BOX */
+/* FORM BOX */
 .box{
     background:#111;
     padding:40px;
     border-radius:20px;
     width:100%;
-    max-width:500px;   /* 🔥 BIGGER */
+    max-width:500px;
     text-align:center;
-    box-shadow:0 0 20px rgba(0,0,0,0.5);
 }
 
-/* LOGO BIG */
+/* LOGO */
 .logo{
     width:180px;
     margin-bottom:20px;
 }
 
-/* TITLE BIG */
+/* TITLE */
 h2{
     font-size:26px;
-    margin-bottom:20px;
 }
 
-/* INPUT BIG */
+/* INPUT */
 input{
     width:100%;
     padding:16px;
@@ -58,7 +56,7 @@ input{
     font-size:16px;
 }
 
-/* BUTTON BIG */
+/* BUTTON */
 button{
     width:100%;
     padding:16px;
@@ -86,82 +84,54 @@ button{
     align-items:center;
 }
 
-/* POPUP BOX BIG */
+/* POPUP BOX */
 .popup-box{
     background:#111;
     padding:30px;
     border-radius:20px;
     width:90%;
     max-width:400px;
-    text-align:center;
 }
 
-/* SOCIAL BUTTONS */
-.insta, .youtube{
-    font-size:16px;
-    margin:10px 0;
-}
-
+/* SOCIAL */
 .insta{
     background:#E1306C;
     color:white;
+    margin:10px 0;
 }
 
 .youtube{
     background:#FF0000;
     color:white;
+    margin:10px 0;
 }
 
 /* CONTINUE */
 .continue{
     background:green;
     margin-top:15px;
-    font-weight:bold;
 }
 
-/* THANK PAGE */
+/* THANK */
 .thank{
     display:none;
     text-align:center;
     padding:30px;
 }
 
-/* THANK LOGO */
-.thank img{
-    width:160px;
-    margin-bottom:20px;
-}
-
-/* BIG ICONS */
+/* ICONS */
 .icons i{
     font-size:36px;
     margin:15px;
 }
 
-/* 📱 MOBILE BOOST */
+/* MOBILE */
 @media (max-width:600px){
-
     .box{
-        padding:30px;
-        max-width:95%;
+        padding:25px;
     }
-
     .logo{
         width:140px;
-    }
-
-    h2{
-        font-size:22px;
-    }
-
-    input{
-        font-size:16px;
-        padding:14px;
-    }
-
-    button{
-        font-size:16px;
-        padding:14px;
     }
 }
 </style>
@@ -187,17 +157,18 @@ button{
 
 </div>
 
+<!-- POPUP -->
 <div class="popup" id="popup">
 <div class="popup-box">
 
 <h3>Follow & Subscribe First</h3>
 
 <button class="insta" onclick="window.open('https://www.instagram.com/no.10sports/')">
-<i class="fa-brands fa-instagram"></i> Follow on Instagram
+Follow on Instagram
 </button>
 
 <button class="youtube" onclick="window.open('https://www.youtube.com/@no.10sports')">
-<i class="fa-brands fa-youtube"></i> Subscribe on YouTube
+Subscribe on YouTube
 </button>
 
 <br>
@@ -209,15 +180,14 @@ button{
 </div>
 </div>
 
+<!-- THANK YOU -->
 <div class="thank" id="thank">
 
 <img src="/static/logo.png">
 
 <h1>Thank You</h1>
 
-<p>Your registration has been successfully submitted</p>
-
-<br>
+<p>Your registration has been submitted</p>
 
 <div class="icons">
 <a href="https://www.instagram.com/no.10sports/" target="_blank">
@@ -227,14 +197,6 @@ button{
 <a href="https://www.youtube.com/@no.10sports" target="_blank">
 <i class="fa-brands fa-youtube" style="color:#FF0000;"></i>
 </a>
-
-<a href="https://www.facebook.com/no10sportss" target="_blank">
-<i class="fa-brands fa-facebook" style="color:#1877F2;"></i>
-</a>
-
-<a href="https://www.linkedin.com/company/110479937" target="_blank">
-<i class="fa-brands fa-linkedin" style="color:#0A66C2;"></i>
-</a>
 </div>
 
 </div>
@@ -242,42 +204,47 @@ button{
 <script>
 
 function openPopup(){
-    popup.style.display="flex";
+    document.getElementById("popup").style.display = "flex";
 }
 
 function submitForm(){
 
-    if(!check.checked){
-        alert("Please complete follow & subscribe first");
+    if(!document.getElementById("check").checked){
+        alert("Please complete steps");
         return;
     }
 
-    btn.innerText="Processing...";
-    btn.disabled=true;
+    let btn = document.getElementById("btn");
+    btn.innerText = "Processing...";
+    btn.disabled = true;
 
     fetch("/submit",{
         method:"POST",
         headers:{"Content-Type":"application/json"},
         body:JSON.stringify({
-            name:name.value,
-            phone:phone.value,
-            email:email.value
+            name: document.getElementById("name").value,
+            phone: document.getElementById("phone").value,
+            email: document.getElementById("email").value
         })
     })
-    .then(res=>res.json())
-    .then(data=>{
-        if(data.status=="success"){
-            popup.style.display="none";
-            formBox.style.display="none";
-            thank.style.display="block";
+    .then(res => res.json())
+    .then(data => {
+
+        if(data.status === "success"){
+            document.getElementById("popup").style.display = "none";
+            document.getElementById("formBox").style.display = "none";
+            document.getElementById("thank").style.display = "block";
+        } else {
+            alert("Submission failed");
         }
-        btn.innerText="Continue";
-        btn.disabled=false;
+
+        btn.innerText = "Continue";
+        btn.disabled = false;
     })
-    .catch(()=>{
-        alert("Something went wrong.");
-        btn.innerText="Continue";
-        btn.disabled=false;
+    .catch(() => {
+        alert("Server error");
+        btn.innerText = "Continue";
+        btn.disabled = false;
     });
 }
 
