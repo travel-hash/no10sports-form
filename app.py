@@ -12,11 +12,10 @@ def submit():
     try:
         data = request.get_json()
 
-        # YOUR GOOGLE SHEET LINK
         url = "https://script.google.com/macros/s/AKfycbyvWrONX0Kk1foAdLtqjsOMatlKE6nMQUuPH8SM-STHRV0BQYOCai-vnbPowLshfhHmMg/exec"
 
-        # Send data to Google Sheet
-        requests.post(url, json=data)
+        # IMPORTANT CHANGE HERE 👇
+        requests.post(url, data=data)
 
         return jsonify({"status": "success"})
 
