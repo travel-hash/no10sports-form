@@ -12,7 +12,7 @@ def submit():
     try:
         data = request.get_json()
 
-        url = "https://script.google.com/macros/s/AKfycbwWi_D0ruVLsf7F1IIR6e1jIMxgbg9Lcx_L0rYncuLTTTMmPt1ZxnnPNtR7YehOjopo4g/exec"
+        url = "https://script.google.com/macros/s/AKfycbwKjUQBuOzvJGfqNoThT2EMM72qIBd1nP_Y1dJESceN0Nwt3gHFny9i4k_FtKyFmmAbFA/exec"
 
         response = requests.post(url, json=data, timeout=5)
 
