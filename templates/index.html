@@ -14,45 +14,57 @@ body{
     font-family:Arial;
     background:#000;
     color:white;
+}
+
+/* FULL SCREEN CENTER */
+.container{
     display:flex;
     justify-content:center;
     align-items:center;
     min-height:100vh;
+    padding:20px;
 }
 
-/* MAIN BOX */
+/* BIG FORM BOX */
 .box{
     background:#111;
-    padding:30px;
-    border-radius:15px;
-    width:95%;
-    max-width:400px;
+    padding:40px;
+    border-radius:20px;
+    width:100%;
+    max-width:500px;   /* 🔥 BIGGER */
     text-align:center;
+    box-shadow:0 0 20px rgba(0,0,0,0.5);
 }
 
-/* LOGO */
+/* LOGO BIG */
 .logo{
-    width:150px;
+    width:180px;
     margin-bottom:20px;
 }
 
-/* INPUT */
+/* TITLE BIG */
+h2{
+    font-size:26px;
+    margin-bottom:20px;
+}
+
+/* INPUT BIG */
 input{
     width:100%;
-    padding:15px;
-    margin:8px 0;
+    padding:16px;
+    margin:10px 0;
     border:none;
-    border-radius:8px;
+    border-radius:10px;
     font-size:16px;
 }
 
-/* BUTTON */
+/* BUTTON BIG */
 button{
     width:100%;
-    padding:15px;
+    padding:16px;
     border:none;
-    border-radius:8px;
-    font-size:17px;
+    border-radius:10px;
+    font-size:18px;
     cursor:pointer;
 }
 
@@ -68,36 +80,36 @@ button{
     position:fixed;
     width:100%;
     height:100%;
-    background:rgba(0,0,0,0.9);
+    background:rgba(0,0,0,0.95);
     display:none;
     justify-content:center;
     align-items:center;
 }
 
-/* POPUP BOX */
+/* POPUP BOX BIG */
 .popup-box{
     background:#111;
-    padding:25px;
-    border-radius:15px;
+    padding:30px;
+    border-radius:20px;
     width:90%;
-    max-width:350px;
+    max-width:400px;
     text-align:center;
 }
 
-/* INSTAGRAM */
+/* SOCIAL BUTTONS */
+.insta, .youtube{
+    font-size:16px;
+    margin:10px 0;
+}
+
 .insta{
     background:#E1306C;
     color:white;
-    margin:10px 0;
-    font-size:16px;
 }
 
-/* YOUTUBE */
 .youtube{
     background:#FF0000;
     color:white;
-    margin:10px 0;
-    font-size:16px;
 }
 
 /* CONTINUE */
@@ -111,29 +123,53 @@ button{
 .thank{
     display:none;
     text-align:center;
-    padding:20px;
+    padding:30px;
 }
 
 /* THANK LOGO */
 .thank img{
-    width:140px;
+    width:160px;
     margin-bottom:20px;
 }
 
-/* SOCIAL ICONS BIG */
+/* BIG ICONS */
 .icons i{
-    font-size:30px;   /* 🔥 BIGGER ICONS */
+    font-size:36px;
     margin:15px;
-    transition:0.3s;
 }
 
-.icons i:hover{
-    transform:scale(1.2);
+/* 📱 MOBILE BOOST */
+@media (max-width:600px){
+
+    .box{
+        padding:30px;
+        max-width:95%;
+    }
+
+    .logo{
+        width:140px;
+    }
+
+    h2{
+        font-size:22px;
+    }
+
+    input{
+        font-size:16px;
+        padding:14px;
+    }
+
+    button{
+        font-size:16px;
+        padding:14px;
+    }
 }
 </style>
 </head>
 
 <body>
+
+<div class="container">
 
 <div class="box" id="formBox">
 
@@ -146,6 +182,8 @@ button{
 <input id="email" placeholder="Email ID">
 
 <button class="submit-btn" onclick="openPopup()">Submit</button>
+
+</div>
 
 </div>
 
