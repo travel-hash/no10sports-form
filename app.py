@@ -1,33 +1,29 @@
 from flask import Flask, render_template, request, jsonify
-import csv
-import os
+import csv, os
 
 app = Flask(__name__)
 
 FILE = 'data.csv'
 
-# Create CSV file if it does not exist
+# ensure file exists
 if not os.path.exists(FILE):
     with open(FILE, 'w', newline='') as f:
         writer = csv.writer(f)
         writer.writerow(['Name', 'Phone', 'Email'])
 
-# Home route
 @app.route('/')
 def home():
     return render_template('index.html')
 
-# Form submit route
 @app.route('/submit', methods=['POST'])
 def submit():
     try:
-        data = request.get_json()
+        data = request.get_json(force=True)
 
-        name = data.get('name')
-        phone = data.get('phone')
-        email = data.get('email')
+        name = data.get('name', '')
+        phone = data.get('phone', '')
+        email = data.get('email', '')
 
-        # Save data into CSV
         with open(FILE, 'a', newline='') as f:
             writer = csv.writer(f)
             writer.writerow([name, phone, email])
@@ -38,6 +34,7 @@ def submit():
         print("ERROR:", e)
         return jsonify({"status": "error"})
 
-# Run app (IMPORTANT for Render)
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=10000)
+# IMPORTANT FOR RENDER
+if __name__ == '__main__':
+    port = int(os.environ.get("PORT", 10000))
+    app.run(host='0.0.0.0', port=port)
