@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, jsonify
-import csv, os
+import csv
+import os
 
 app = Flask(__name__)
 
@@ -9,7 +10,7 @@ FILE = 'data.csv'
 if not os.path.exists(FILE):
     with open(FILE, 'w', newline='') as f:
         writer = csv.writer(f)
-        writer.writerow(['Name','Phone','Email'])
+        writer.writerow(['Name', 'Phone', 'Email'])
 
 @app.route('/')
 def home():
@@ -20,20 +21,19 @@ def submit():
     try:
         data = request.get_json()
 
-        name = (data.get('name') or "").strip()
-        phone = (data.get('phone') or "").strip()
-        email = (data.get('email') or "").strip()
+        name = data.get('name')
+        phone = data.get('phone')
+        email = data.get('email')
 
-        # JUST SAVE (NO CHECKS)
+        # Save data (NO duplicate check)
         with open(FILE, 'a', newline='') as f:
             writer = csv.writer(f)
             writer.writerow([name, phone, email])
 
-        return jsonify({"status":"success"})
+        return jsonify({"status": "success"})
 
     except Exception as e:
-        print("ERROR:", e)
-        return jsonify({"status":"error"})
+        return jsonify({"status": "error", "message": str(e)})
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    app.run()
