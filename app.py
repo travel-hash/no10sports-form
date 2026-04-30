@@ -14,8 +14,10 @@ def submit():
 
         url = "https://script.google.com/macros/s/AKfycbyvWrONX0Kk1foAdLtqjsOMatlKE6nMQUuPH8SM-STHRV0BQYOCai-vnbPowLshfhHmMg/exec"
 
-        # IMPORTANT CHANGE HERE 👇
-        requests.post(url, data=data)
+        response = requests.post(url, data=data)
+
+        if response.status_code != 200:
+            return jsonify({"status": "error", "message": "Failed to send data"})
 
         return jsonify({"status": "success"})
 
