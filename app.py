@@ -1,15 +1,7 @@
 from flask import Flask, render_template, request, jsonify
-import csv, os
+import requests
 
 app = Flask(__name__)
-
-FILE = 'data.csv'
-
-# ensure file exists
-if not os.path.exists(FILE):
-    with open(FILE, 'w', newline='') as f:
-        writer = csv.writer(f)
-        writer.writerow(['Name', 'Phone', 'Email'])
 
 @app.route('/')
 def home():
@@ -18,23 +10,18 @@ def home():
 @app.route('/submit', methods=['POST'])
 def submit():
     try:
-        data = request.get_json(force=True)
+        data = request.get_json()
 
-        name = data.get('name', '')
-        phone = data.get('phone', '')
-        email = data.get('email', '')
+        # YOUR GOOGLE SHEET LINK
+        url = "https://script.google.com/macros/s/AKfycbyvWrONX0Kk1foAdLtqjsOMatlKE6nMQUuPH8SM-STHRV0BQYOCai-vnbPowLshfhHmMg/exec"
 
-        with open(FILE, 'a', newline='') as f:
-            writer = csv.writer(f)
-            writer.writerow([name, phone, email])
+        # Send data to Google Sheet
+        requests.post(url, json=data)
 
         return jsonify({"status": "success"})
 
     except Exception as e:
-        print("ERROR:", e)
-        return jsonify({"status": "error"})
+        return jsonify({"status": "error", "message": str(e)})
 
-# IMPORTANT FOR RENDER
-if __name__ == '__main__':
-    port = int(os.environ.get("PORT", 10000))
-    app.run(host='0.0.0.0', port=port)
+if __name__ == "__main__":
+    app.run()
