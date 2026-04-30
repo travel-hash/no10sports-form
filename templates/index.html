@@ -1,1 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>No.10 Sports</title>
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+body{
+    margin:0;
+    font-family:Arial;
+    background:#000;
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.box{
+    background:#111;
+    padding:30px;
+    border-radius:12px;
+    width:320px;
+    text-align:center;
+}
+
+.logo{
+    width:140px;
+    margin-bottom:15px;
+}
+
+input{
+    width:100%;
+    padding:10px;
+    margin:6px 0;
+    border:none;
+    border-radius:6px;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:6px;
+    font-size:16px;
+    cursor:pointer;
+}
+
+.submit-btn{
+    background:green;
+    color:white;
+}
+
+.popup{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.85);
+    display:none;
+    justify-content:center;
+    align-items:center;
+}
+
+.popup-box{
+    background:#111;
+    padding:25px;
+    border-radius:12px;
+    width:300px;
+    text-align:center;
+}
+
+.insta{
+    background:#E1306C;
+    color:white;
+    margin:8px 0;
+}
+
+.youtube{
+    background:#FF0000;
+    color:white;
+    margin:8px 0;
+}
+
+.continue{
+    background:green;
+    margin-top:10px;
+}
+
+.error{
+    color:red;
+    font-size:12px;
+    text-align:left;
+    display:none;
+}
+
+.thank{
+    display:none;
+    text-align:center;
+}
+
+.thank img{
+    width:150px;
+    margin-bottom:15px;
+}
+
+.icons i{
+    font-size:22px;
+    margin:12px;
+    transition:0.3s;
+}
+
+.icons i:hover{
+    transform:scale(1.2);
+}
+</style>
+</head>
+
+<body>
+
+<div class="box" id="formBox">
+
+<img src="/static/logo.png" class="logo">
+
+<h2>Registration Form</h2>
+
+<input id="name" placeholder="Full Name">
+
+<input id="phone" placeholder="Phone Number">
+<div class="error" id="phoneErr">Phone already registered</div>
+
+<input id="email" placeholder="Email ID">
+<div class="error" id="emailErr">Email already registered</div>
+
+<button class="submit-btn" onclick="openPopup()">Submit</button>
+
+</div>
+
+<div class="popup" id="popup">
+<div class="popup-box">
+
+<h3>Follow & Subscribe First</h3>
+
+<button class="insta" onclick="window.open('https://www.instagram.com/no.10sports/')">
+<i class="fa-brands fa-instagram"></i> Follow on Instagram
+</button>
+
+<button class="youtube" onclick="window.open('https://www.youtube.com/@no.10sports')">
+<i class="fa-brands fa-youtube"></i> Subscribe on YouTube
+</button>
+
+<br><br>
+
+<input type="checkbox" id="check"> I have completed both steps
+
+<button class="continue" id="btn" onclick="submitForm()">Continue</button>
+
+</div>
+</div>
+
+<div class="thank" id="thank">
+
+<img src="/static/logo.png">
+
+<h1>Thank You</h1>
+
+<p>Your registration has been successfully submitted</p>
+
+<br><br>
+
+<div class="icons">
+<a href="https://www.instagram.com/no.10sports/" target="_blank">
+<i class="fa-brands fa-instagram" style="color:#E1306C;"></i>
+</a>
+
+<a href="https://www.youtube.com/@no.10sports" target="_blank">
+<i class="fa-brands fa-youtube" style="color:#FF0000;"></i>
+</a>
+
+<a href="https://www.facebook.com/no10sportss" target="_blank">
+<i class="fa-brands fa-facebook" style="color:#1877F2;"></i>
+</a>
+
+<a href="https://www.linkedin.com/company/110479937" target="_blank">
+<i class="fa-brands fa-linkedin" style="color:#0A66C2;"></i>
+</a>
+</div>
+
+</div>
+
+<script>
+
+function openPopup(){
+    popup.style.display="flex";
+}
+
+function submitForm(){
+
+    phoneErr.style.display="none";
+    emailErr.style.display="none";
+
+    if(!check.checked){
+        alert("Please complete follow & subscribe first");
+        return;
+    }
+
+    btn.innerText="Processing...";
+    btn.disabled=true;
+
+    fetch("/submit",{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({
+            name:name.value,
+            phone:phone.value,
+            email:email.value
+        })
+    })
+    .then(res=>res.json())
+    .then(data=>{
+
+        if(data.status=="success"){
+            popup.style.display="none";
+            formBox.style.display="none";
+            thank.style.display="block";
+        }
+
+        btn.innerText="Continue";
+        btn.disabled=false;
+
+    })
+    .catch(()=>{
+        alert("Server not running. Open http://127.0.0.1:5000");
+        btn.innerText="Continue";
+        btn.disabled=false;
+    });
+}
+
+</script>
+
+</body>
+</html>
